@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mcq_responses', function (Blueprint $table) {
+        Schema::create('feedback_user', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('question_id');
-            $table->unsignedInteger('selected_option');
+            $table->unsignedBigInteger('feedback_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('question_id')->references('id')->on('mcq_questions');
         });
     }
 
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mcq_responses');
+        Schema::dropIfExists('feedback_user');
     }
 };

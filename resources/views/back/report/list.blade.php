@@ -1,14 +1,16 @@
 @extends('back.layouts.app')
-@section('title', 'User Report')
+@section('title', 'User List')
 @section('content')
 <div class="page-content">
+    <x-success-status class="mb-4" :status="session('message')"  />
+    <x-validation-errors class="mb-4" :errors="$errors"  />
     <div class="container-fluid">
 
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0 font-size-18">User Report</h4>
+                    <h4 class="mb-0 font-size-18">User List</h4>
 
 
                 </div>
@@ -23,29 +25,25 @@
                         <table class="table project-list-table table-nowrap align-middle table-borderless">
                             <thead>
                                 <tr>
+                                    <th scope="col">ID</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Correct Answer</th>
-                                    <th scope="col">Percentage</th>
-                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($users as $user)
                                 <tr>
+                                    <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
-                                    <td>{{$user->email}}</td>
-
-                                    <td>{{isset($user->mcqResult['correct_answers']) ? $user->mcqResult['correct_answers'] : 'N/A'}}/{{isset($user->mcqResult['total_questions']) ? $user->mcqResult['total_questions'] : 'N/A'}}</td>
-                                    <td>{{ isset( $user->mcqResult['percentage'])? $user->mcqResult['percentage']:'N/A' }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>
-                                        @if(isset( $user->mcqResult['percentage']) && $user->mcqResult['percentage'] < 50) Failed @else @if(isset( $user->mcqResult['percentage']) && $user->mcqResult['percentage'] >= 50)
-                                            Passed
-                                            @else
-                                            N/A
-                                            @endif
-
-                                            @endif
+                                        <form method="POST" action="{{ route('back.user_delete', ['user' => $user->id]) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mcq_questions', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->text('question_text');
-            $table->json('options'); 
-            $table->integer('correct_option'); 
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('feedback_id');
+            $table->text('content');
+            $table->boolean('is_enabled')->default(true);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('question');
+        Schema::dropIfExists('comments');
     }
 };

@@ -2,9 +2,8 @@
 <html lang="en">
 
 <head>
-    
     <meta charset="utf-8" />
-    <title>Online Quiz Admin</title>
+    <title>Feedback Admin</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- App favicon -->
@@ -21,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="/back/assets/toastr/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
     <script src="/back/assets/libs/jquery/jquery.min.js"></script>
-    
+
 </head>
 
 
@@ -115,16 +114,21 @@
 
                         <li class="menu-title" key="t-apps">Modules</li>
                         <li>
-                            <a href="{{ route('back.question') }}" >
-                                <i class="bx bx-bitcoin"></i>
-                                <span key="t-crypto">Question</span>
-                            </a>
-                            
-                        </li>
-                        <li>
                             <a href="{{ route('back.user_list') }}" >
                                 <i class="bx bx-bitcoin"></i>
-                                <span key="t-crypto">User Report</span>
+                                <span key="t-crypto">User List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('back.feedback_list') }}" >
+                                <i class="bx bx-bitcoin"></i>
+                                <span key="t-crypto">Feedback List</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('back.comment_list') }}" >
+                                <i class="bx bx-bitcoin"></i>
+                                <span key="t-crypto">Comment List</span>
                             </a>
                         </li>
                     </ul>
@@ -140,7 +144,7 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-    
+
             @yield('content')
             <!-- End Page-content -->
 
@@ -150,7 +154,7 @@
                         <div class="col-sm-6">
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> © Online Quiz.
+                            </script> © Feedback Online.
                         </div>
 
                     </div>
@@ -174,7 +178,7 @@
 
     <script src="/back/assets/toastr/toastr.min.js"></script><!-- TOASTR -->
 
-   
+
     <!-- dashboard init -->
     <script src="/back/assets/js/pages/dashboard.init.js"></script>
 

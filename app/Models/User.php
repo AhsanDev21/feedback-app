@@ -44,38 +44,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function attempt()
+
+    public function votedFeedback()
     {
-        return $this->hasMany(McqResponse::class);
+        return $this->belongsToMany(Feedback::class, 'feedback_user', 'user_id', 'feedback_id');
     }
-    public function calculateMCQResult()
-{
-    $correctResponses = $this->mcqResponses()->whereColumn('selected_option', 'question.correct_option')->count();
-    $totalQuestions = $this->mcqResponses()->count();
 
-    return [
-        'correct_answers' => $correctResponses,
-        'total_questions' => $totalQuestions,
-        'percentage' => ($totalQuestions > 0) ? ($correctResponses / $totalQuestions) * 100 : 0,
-    ];
-}
-public function mcqResponses()
-{
-    return $this->hasMany(McqResponse::class);
-}
 
-public function getMcqResultAttribute()
-{
-    $correctResponses = $this->mcqResponses->filter(function ($response) {
-        return $response->selected_option === $response->question->correct_option;
-    })->count();
-
-    $totalQuestions = $this->mcqResponses->count();
-
-    return [
-        'correct_answers' => $correctResponses,
-        'total_questions' => $totalQuestions,
-        'percentage' => ($totalQuestions > 0) ? ($correctResponses / $totalQuestions) * 100 : 0,
-    ];
-}
 }
